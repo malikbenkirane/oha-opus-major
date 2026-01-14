@@ -1,0 +1,8 @@
+review following configmap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: player-data-config
+data:
+  server:
+    addr: ":8080"
