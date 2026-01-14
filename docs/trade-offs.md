@@ -1,11 +1,51 @@
 # Trade-offs due to time limitation
 
-## Inadequate Testing Practices
+## ArgoCD
+
+We stripped the configuration files down to the essentials, omitting role‑based
+access and any features available in the argocd [operator manual](
+https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual
+) example manifests.
+
+### Namespace
+
+The target namespace isn’t provisioned automatically, so you must create it
+yourself before running  
+
+    argocd app sync omoha-demo  
+
+Make sure the **omoha-demo** namespace exists, for example:  
+
+    kubectl create namespace omoha-demo  
+
+In this demonstration the namespace is created together with the Argo CD
+application definition located in `argocd/application.yaml` at the repository
+root. We haven’t tried to set the namespace via Kustomize, nor have we
+considered whether that approach might be an anti‑pattern.
+
+### Sync policies
+
+Because we didn’t have a chance to review the details of Argo CD’s application
+sync policies, we simply set automated pruning and self‑healing as the default
+behavior.
+
+### Finalizers
+
+We didn't take the time to examine the various finalizers available for the
+Argo application, nor were we able to explore the different approaches and how
+they might fit the homework assignment's context.
+
+The ArgoCD application is as minimal as invoking the CLI with only the
+essential options.
+
+## Player data service
+
+### Inadequate Testing Practices
 
 Testing is currently done manually. We'll evaluate if we can finish it and
 identify priorities to meet the suggested timeline.
 
-## GET /update-player-data endpoint implementation
+### GET /update-player-data endpoint implementation
 
 The current implementation lacks support for CORS and cache headers; we would
 incorporate those features if we had additional time.
@@ -18,7 +58,7 @@ Storing the entire response in a list isn’t practical for large multiplayer
 games because it can consume excessive memory. Ideally, the results should be
 paginated, but we opted for this simpler solution due to time constraints.
 
-## Error handling
+### Error handling
 
 For this assignment, we adopted a minimalist approach to error handling.
 
@@ -30,7 +70,7 @@ filtering. While this speeds development, it is not suitable for production, as
 exposing raw server errors can create security vulnerabilities and hinder
 robust fault tolerance.
 
-## Adapters options validation
+### Adapters options validation
 
 **Current limitation**
 
