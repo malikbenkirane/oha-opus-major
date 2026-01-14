@@ -1,8 +1,23 @@
 # Trade-offs due to time limitation
 
-## Inadequate Testing Practices  
+## Inadequate Testing Practices
+
 Testing is currently done manually. We'll evaluate if we can finish it and
 identify priorities to meet the suggested timeline.
+
+## GET /update-player-data endpoint implementation
+
+The current implementation lacks support for CORS and cache headers; we would
+incorporate those features if we had additional time.
+
+The handler wrapper doesn’t handle errors that arise after part of the response
+body has already been sent. We could have resolved this issue if we had more
+time.
+
+Storing the entire response in a list isn’t practical for large multiplayer
+games because it can consume excessive memory. Ideally, the results should be
+paginated, but we opted for this simpler solution due to time constraints.
+
 ## Error handling
 
 For this assignment, we adopted a minimalist approach to error handling.
