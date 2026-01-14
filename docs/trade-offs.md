@@ -45,6 +45,15 @@ essential options.
 Testing is currently done manually. We'll evaluate if we can finish it and
 identify priorities to meet the suggested timeline.
 
+## Service Configuration Hot Reload
+
+Because of the limited time for this home‑project assignment, we’ll concentrate
+solely on using a ConfigMap to load the service configuration.
+
+Although we could have explored hot configuration reload—allowing the server’s
+settings to be updated on the fly without any interruptions—we’ll leave that
+for future work.
+
 ### GET /update-player-data endpoint implementation
 
 The current implementation lacks support for CORS and cache headers; we would
