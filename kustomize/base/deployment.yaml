@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-data
+spec:
+  selector:
+    matchLabels:
+      deployment: player-data
+  template:
+    metadata:
+      labels:
+        deployment: player-data
+    spec:
+      containers:
+      - name: player-data-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: player-data-config
+          mountPath: /etc/player-data-service/config
+          readOnly: true
+      volumes:
+      - name: player-data-config
+        configMap:
+          name: player-data-config
