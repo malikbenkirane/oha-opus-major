@@ -1,5 +1,8 @@
 # Trade-offs due to time limitation
 
+## Inadequate Testing Practices  
+Testing is currently done manually. We'll evaluate if we can finish it and
+identify priorities to meet the suggested timeline.
 ## Error handling
 
 For this assignment, we adopted a minimalist approach to error handling.
