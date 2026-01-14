@@ -54,10 +54,35 @@ Although we could have explored hot configuration reload—allowing the server�
 settings to be updated on the fly without any interruptions—we’ll leave that
 for future work.
 
+### TLS support
+
+The current deployment does not include TLS.
+
+- ioctl + mTLS: provides mutual authentication but requires additional Gateway
+  configuration and custom tooling.  
+
+- Legacy certificates: simple to deploy but increases operational overhead for
+  rotation and revocation.  
+
+- Ingress + cert‑manager: automates certificate lifecycle but introduces an
+  extra layer (Ingress) and depends on external CA availability.
+
+Due to time constraints none of the above were implemented. Instead a basic
+Service resource is deployed and accessed locally with `kubectl port‑forward`.
+
+
+We choose to deploy a plain Service object and forward traffic from the local
+workstation using `kubectl`. This avoids TLS setup while still allowing
+functional testing.
+
+    kubectl port-forward svc/my-app 8080:8080 --namespace <namespace>
+
+
 ### GET /update-player-data endpoint implementation
 
 The current implementation lacks support for CORS and cache headers; we would
 incorporate those features if we had additional time.
+
 
 The handler wrapper doesn’t handle errors that arise after part of the response
 body has already been sent. We could have resolved this issue if we had more
