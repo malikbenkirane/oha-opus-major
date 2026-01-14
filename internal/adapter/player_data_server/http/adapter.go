@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -71,6 +72,8 @@ type server struct {
 	server *http.Server
 	config Config
 	err    chan error
+
+	playerDataRepository port.PlayerDataRepository
 }
 
 // Serve starts the HTTP server in a goroutine, monitors the provided
@@ -136,11 +139,29 @@ func (s server) handler(h handler) http.HandlerFunc {
 	}
 }
 
-var ErrNotImplemented = errors.New("not implemented")
-
 func (s server) handleGetUpdatePlayerData(w http.ResponseWriter, r *http.Request) error {
-	// TODO
-	return ErrNotImplemented
+	// set response type
+	w.Header().Set("Content-Type", "application/json")
+
+	// fetch all players
+	players, err := s.playerDataRepository.Players(r.Context())
+	if err != nil {
+		return fmt.Errorf("playerDataRepository: players: %w", err)
+	}
+
+	// convert to JSON-friendly structs
+	rjson := make([]playerDataJSON, len(players))
+	for i, player := range players {
+		var pjson playerDataJSON
+		pjson.from(player) // map domain model to JSON struct
+		rjson[i] = pjson
+	}
+
+	// write JSON response
+	if err := json.NewEncoder(w).Encode(rjson); err != nil {
+		return fmt.Errorf("json: encode response: %w", err)
+	}
+	return nil
 }
 
 type Option func(Config) Config
