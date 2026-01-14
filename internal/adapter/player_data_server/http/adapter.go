@@ -3,7 +3,6 @@ package http
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -49,15 +48,16 @@ func defaultConfig(addr string) Config {
 	}
 }
 
-func New(addr string, opts ...Option) port.PlayerDataServer {
+func New(addr string, repo port.PlayerDataRepository, opts ...Option) port.PlayerDataServer {
 	conf := defaultConfig(addr)
 	for _, opt := range opts {
 		conf = opt(conf)
 	}
 
 	server := &server{
-		config: conf,
-		err:    make(chan error, 1),
+		config:               conf,
+		err:                  make(chan error, 1),
+		playerDataRepository: repo,
 	}
 
 	mux := http.NewServeMux()
@@ -100,12 +100,14 @@ func (s server) Serve(ctx context.Context) error {
 	srvErr := make(chan error, 1)
 	defer close(srvErr)
 	go func() {
+		slog.Info("listening and serving", "addr", s.config.addr)
 		srvErr <- s.server.ListenAndServe()
 	}()
 
 	select {
 	case <-ctx.Done():
 		// Context cancelled – initiate graceful shutdown.
+		slog.Info("server context cancelled starting graceful shutdown", "timeout", s.config.shutdownTimeout)
 		shutdownCtx, cancel := context.WithTimeout(ctx, s.config.shutdownTimeout)
 		defer cancel()
 		return s.shutdown(shutdownCtx)

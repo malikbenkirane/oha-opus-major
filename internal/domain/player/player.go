@@ -13,5 +13,5 @@ type Data struct {
 }
 
 type Vector2 struct {
-	X, Y float32
+	X, Y float64
 }
