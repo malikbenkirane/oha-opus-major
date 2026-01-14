@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: omoha-demo
+  namespace: argocd
+spec:
+  description: Opus Major Online Home Assignment
+  destinations:
+    - namespace: omoha-*
+      server: https://kubernetes.default.svc
+      name: in-cluster
+  sourceRepos:
+    - https://github.com/malikbenkirane/om-oha-sre
