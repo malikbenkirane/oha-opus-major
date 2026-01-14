@@ -30,3 +30,10 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# Miscellaneous
+payload.json
+response.json
+.prompt
+.commit-stash
+.prepare.yaml
