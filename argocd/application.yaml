@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: omoha-demo
+  namespace: argocd
+  labels:
+    name: omoha-demo
+spec:
+  project: omoha-demo
+  sources:
+    repoURL: https://github.com/malikbenkirane/oha-opus-major
+    revision: main
+    path: kustomize/overlays/demo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: omoha-demo
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: omoha-demo
+  labels:
+    project: omoha-demo
