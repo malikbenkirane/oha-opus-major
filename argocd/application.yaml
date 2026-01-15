@@ -7,7 +7,7 @@ metadata:
     name: omoha-demo
 spec:
   project: omoha-demo
-  sources:
+  source:
     repoURL: https://github.com/malikbenkirane/oha-opus-major
     revision: main
     path: kustomize/overlays/demo
