@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: player-data-config
 data:
-  server:
+  server: |
     addr: ":8080"
