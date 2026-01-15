@@ -1,4 +1,8 @@
-# SRE Homework Assignment
+# OHA - Player Data Service
+
+A tiny Go micro‑service that serves player state for a multiplayer‑game demo.
+It demonstrates a hexagonal architecture, containerisation, and Argo CD‑driven
+GitOps deployment.
 
 **Project Overview**
 
@@ -16,8 +20,25 @@ telemetry and logs. You can inspect the `feat/otel` branch, which contains a
 prototype of the tools we might have used to add observability to the service,
 though the service is deliberately lacking these capabilities.
 
+
+### Table of Contents
+
 <!-- toc -->
+- [Prerequisites](#prerequisites)
+- [Getting started](#getting-started)
+- [Architecture](#architecture)
+- [Trade-offs due to time limitations](#trade-offs-due-to-time-limitations)
+- [Additional documents](#additional-documents)
+- [Troubleshooting](#troubleshooting)
 <!-- /toc -->
+
+### Prerequisites
+
+- Kubernetes (any cluster with RBAC)
+- Argo CD (installed in the cluster) – see [argo-cd.readthedocs.io](https://argo-cd.readthedocs.io/)
+- `kubectl` ([k8s.io/docs/tasks/tools](https://kubernetes.io/docs/tasks/tools/))
+- `kustomize` ([kustomize.io](https://kustomize.io/))
+- `argocd` CLI ([argo-cd/.../cli_installation](https://argo-cd.readthedocs.io/en/stable/cli_installation/))
 
 ## Getting started
 
@@ -131,6 +152,9 @@ directories within the overlays folder.
 We may have devoted excessive time to building the service, leaving us
 insufficient time to cover the essential SRE/DevOps elements of the assignment.
 
+It’s been some time since I wanted to explore Argo CD, and I’m grateful for the
+chance to do so!
+
 This assignment prompted me to explore several technologies I hadn’t previously
 used, giving me a valuable opportunity to broaden my toolkit and discover new
 ways to tackle common software‑engineering challenges.  
@@ -139,3 +163,23 @@ I focused on making the project reproducible and thoroughly documented for
 future engineers—including my own future self—by tackling essential aspects
 such as deployment, observability, tracing, metrics, logging, and
 configuration, so anyone reviewing the work can quickly grasp and extend it.
+
+Further details on the time‑related trade‑offs are available in the [trade‑offs.md](
+docs/trade-offs.md) document.
+
+## Additional documents
+
+With the aim of making this effort memorable and substantive—not just a quick,
+easy task—I’ve written documentation for anyone new to Argo CD. You can find it
+in the [argocd.md](docs/argocd.md) file.
+
+Another interesting document covers game design. Its TL;DR highlights topics we
+can consider when building our own multiplayer game. You can find it
+at [game.md](docs/game.md), where it also describes the model used by the Go
+service.
+
+
+## Troubleshooting
+
+- **Argo CD sync fails** – Ensure the cluster context matches `KUBECONFIG` and that the service account used by Argo CD has permission to create resources in the `omaha-demo` namespace.
+- **Port‑forward hangs** – Verify that the `demo-player-data` Service exists (`kubectl get svc -n omoha-demo`). 
