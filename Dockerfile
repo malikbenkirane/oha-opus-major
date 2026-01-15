@@ -28,8 +28,8 @@ FROM scratch
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 # Copy the compiled binary from the builder stage
-COPY --from=builder /app/serve-player-data /usr/local/bin
+COPY --from=builder /app/serve-player-data /
 
 # Command to run the executable when the container starts
-CMD ["/usr/local/bin/serve-player-data"]
+CMD ["/serve-player-data"]
 
