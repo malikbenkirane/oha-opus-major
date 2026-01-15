@@ -15,7 +15,7 @@ import (
 const defaultConfigDir = "/etc/player-data-service"
 
 func main() {
-	configDir := flag.String("-config-dir", "", "path where to look for config dir")
+	configDir := flag.String("config-dir", "", "path where to look for config dir")
 	flag.Parse()
 
 	if len(*configDir) == 0 {
