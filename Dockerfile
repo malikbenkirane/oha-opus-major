@@ -30,13 +30,6 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 # Copy the compiled binary from the builder stage
 COPY --from=builder /app/serve-player-data /usr/local/bin
 
-# Create a non-root user and group for enhanced security
-# The user ID (UID) and group ID (GID) are explicitly set
-RUN adduser -S -u 1000 -G users appuser
-
-# Switch to the non-root user
-USER appuser
-
 # Command to run the executable when the container starts
 CMD ["/usr/local/bin/serve-player-data"]
 
