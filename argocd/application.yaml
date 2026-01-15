@@ -9,7 +9,7 @@ spec:
   project: omoha-demo
   source:
     repoURL: https://github.com/malikbenkirane/oha-opus-major
-    revision: main
+    targetRevision: main
     path: kustomize/overlays/demo
   destination:
     server: https://kubernetes.default.svc
