@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
         - name: player-data-service
-          image: ghcr.io/malikbenkirane/oha-opus-major:80bf6d8ba0f0676f67d022e4033f0d1f0d9b2c2c
+          image: ghcr.io/malikbenkirane/oha-opus-major:9ee50d0b7900760b34fab66214c9c327454fdc36
