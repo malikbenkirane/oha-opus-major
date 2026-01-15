@@ -1,5 +1,13 @@
 # Trade-offs due to time limitation
 
+## Kubernetes
+
+We omitted the implementation of liveness, readiness, and startup
+probes—critical components for notifying the Kubernetes scheduler about
+container health and aiding its resource‑management decisions.
+
+Additionally, we did not assess or define resource limits for the service.
+
 ## ArgoCD
 
 We stripped the configuration files down to the essentials, omitting role‑based
