@@ -102,10 +102,11 @@ perform the final bundling.
             Run(ctx context.Context) error
     }
 
-Review the [feat/otel](https://github.com/malikbenkirane/tree/feat/otel) branch
-to see an additional entity I intended to include in this project’s scope;
-however, time constraints prevented its integration. The current setup also
-lacks liveness, readiness, and startup probes. There was an idea to add a
+Review the [feat/otel](
+https://github.com/malikbenkirane/oha-opus-major/blob/feat/otel/internal/otel/otel.go)
+branch to see an additional entity I intended to include in this project’s
+scope; however, time constraints prevented its integration. The current setup
+also lacks liveness, readiness, and startup probes. There was an idea to add a
 sidecar container that could interact with the horizontally scalable deployment
 when the replicas become unresponsive, along with several other concepts
 related to this approach that we can discuss and potentially adopt as an
